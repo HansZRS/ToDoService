@@ -14,9 +14,9 @@ describe('TodoService', () => {
   let httpClientSpy: any
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj("HttpClient", ['post'])
+    httpClientSpy = jasmine.createSpyObj("HttpClient", ['post', 'get', 'delete'])
     // httpClient = jasmine.createSpyObj("HttpClient",['post'])
-    todoStoreService = new TodoStoreService();
+    // todoStoreService = new TodoStoreService();
     TestBed.configureTestingModule({
       providers: [
         TodoApiService,
@@ -51,13 +51,19 @@ describe('TodoService', () => {
     expect(service.errorMessage).toEqual('create failed');
   });
 
+  it('should get detail todoitem when via mockHttp post', () => {
+    // given
+    // const todoItem = new ToDoItem(9, 'title', 'description', true); 
+    // when
+    service.findById(9);
+    // then
+    expect(httpClientSpy.get).toHaveBeenCalledWith('https://localhost:5001/todos/9')
+  });
+
   it('should delete todoitem when via mockHttp post', () => {
     // given
-    const todoItem = new ToDoItem(9, 'hello', 'description', true);
-    // httpClientSpy.delete.and.returnValue(of({}));
-    // when
     service.delete(9);
     // then
-    expect(httpClientSpy.delete).toHaveBeenCalledWith('https://localhost:5001/ToDos', todoItem);
+    expect(httpClientSpy.delete).toHaveBeenCalledWith('https://localhost:5001/todos?id=9')
   });
 });

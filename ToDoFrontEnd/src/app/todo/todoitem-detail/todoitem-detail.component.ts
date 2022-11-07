@@ -14,14 +14,20 @@ export class TodoitemDetailComponent implements OnInit {
   //   return this.todoService.currentTodoItem();
   // }
 
-  todoItem: ToDoItem = new ToDoItem(0, '', '', false);
-
+  public todoItem: ToDoItem = {} as ToDoItem;
+  
   constructor(public todoService: TodoService,
     private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     const id = this.activeRoute.snapshot.paramMap.get('id');
     // console.log(id);
-    this.todoItem = this.todoService.findById(Number(id));
+    this.todoService.findById(Number(id)).subscribe(res => {
+      this.todoItem = res;
+    });
+  }
+
+  update(): void {
+    this.todoService.update(this.todoItem);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToDoItem } from '../../model/ToDoItem';
 import { TodoService } from '../../service/todo.service';
 
@@ -10,15 +10,17 @@ import { TodoService } from '../../service/todo.service';
 })
 export class ListTodoitemComponent implements OnInit {
 
-  public get toDoItems(): ToDoItem[] {
-    return this.todoService.todoItems;
-  }
+  public toDoItems: ToDoItem[] = [];
+  // public get toDoItems(): ToDoItem[] {
+  //   return this.todoService.todoItems;
+  // }
 
   constructor(private todoService: TodoService,
-    private router: Router) {
+    private router: Router, private activeRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.todoService.getAll().subscribe(res => this.toDoItems = res);
   }
 
   public detail(id: number): void {
@@ -32,6 +34,9 @@ export class ListTodoitemComponent implements OnInit {
   }
 
   public doDelete(id: number): void {
-    this.todoService.delete(id);
+    this.todoService.delete(id).subscribe(() => {
+      const index = this.toDoItems.findIndex(item => item.id === id);
+      this.toDoItems.splice(index, 1);
+    });
   }
 }
