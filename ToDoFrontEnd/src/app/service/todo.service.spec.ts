@@ -50,4 +50,14 @@ describe('TodoService', () => {
     // then
     expect(service.errorMessage).toEqual('create failed');
   });
+
+  it('should delete todoitem when via mockHttp post', () => {
+    // given
+    const todoItem = new ToDoItem(9, 'hello', 'description', true);
+    // httpClientSpy.delete.and.returnValue(of({}));
+    // when
+    service.delete(9);
+    // then
+    expect(httpClientSpy.delete).toHaveBeenCalledWith('https://localhost:5001/ToDos', todoItem);
+  });
 });

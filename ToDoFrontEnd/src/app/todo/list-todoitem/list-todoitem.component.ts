@@ -22,7 +22,7 @@ export class ListTodoitemComponent implements OnInit {
   }
 
   public detail(id: number): void {
-    this.todoService.selectTodoItem(id);
+    this.todoService.findById(id);
     this.router.navigate(['todos', id]);
   }
 

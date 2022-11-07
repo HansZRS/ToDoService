@@ -87,11 +87,11 @@ namespace ToDoService.Controllers
 
         private void CheckAndThrowException()
         {
-            thorwExceptionIndex++;
-            if (thorwExceptionIndex % 5 == 0)
-            {
-                throw new Exception();
-            }
+            //thorwExceptionIndex++;
+            //if (thorwExceptionIndex % 5 == 0)
+            //{
+            //    throw new Exception();
+            //}
         }
     }
 }
