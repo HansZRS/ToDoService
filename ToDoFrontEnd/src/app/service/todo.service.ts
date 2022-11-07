@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TodoApiService } from '../api/todo.api.service';
 import { ToDoItem } from '../model/ToDoItem';
-import { TodoStoreService } from './todo-store.service';
+// import { TodoStoreService } from './todo-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class TodoService {
 
   public errorMessage?: string = 'create failed';
 
-  constructor(private todoStore: TodoStoreService, private todoApi: TodoApiService) {
+  constructor(private todoApi: TodoApiService) {
   }
 
   public getAll(): Observable<ToDoItem[]> {
