@@ -9,21 +9,27 @@ import { TodoService } from '../../service/todo.service';
   styleUrls: ['./list-todoitem.component.scss']
 })
 export class ListTodoitemComponent implements OnInit {
-
-  public toDoItems: ToDoItem[] = [
-    {
-      id: 0,
-      title: '',
-      description: '',
-      isDone: false
-    },
-  ];
+  public toDoItems: ToDoItem[];
+  // public toDoItems: ToDoItem[] = [
+  //   {
+  //     id: 0,
+  //     title: '',
+  //     description: '',
+  //     isDone: false
+  //   },
+  // ];
   // public get toDoItems(): ToDoItem[] {
   //   return this.todoService.todoItems;
   // }
 
-  constructor(private todoService: TodoService,
-    private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(private todoService: TodoService, private router: Router, private activeRoute: ActivatedRoute) {
+    this.toDoItems = 
+    [{
+      id: 0,
+      title: '',
+      description: '',
+      isDone: false
+    }];
   }
 
   ngOnInit(): void {
@@ -35,8 +41,14 @@ export class ListTodoitemComponent implements OnInit {
     this.router.navigate(['todos', id]);
   }
 
+  async navToList(): Promise<boolean> {
+    return this.router.navigate([''], {
+      relativeTo: this.activeRoute.parent
+    });
+  }
+
   public update(id: number): void {
-    this.todoService.selectTodoItemForUpdate(id);
+    this.todoService.findById(id);
     this.router.navigate(['todos', 'edit', id]);
   }
 

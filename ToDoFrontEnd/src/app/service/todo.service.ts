@@ -10,16 +10,8 @@ import { TodoStoreService } from './todo-store.service';
 export class TodoService {
 
   public errorMessage?: string = 'create failed';
-  // todo: ToDoItem
-  private _selectedTodoItem: ToDoItem = {} as ToDoItem;
-  private _updatingTodoItem: ToDoItem = {} as ToDoItem;
+
   constructor(private todoStore: TodoStoreService, private todoApi: TodoApiService) {
-    // this.todo = {
-    //   id: 0,
-    //   title: '',
-    //   description: '',
-    //   isDone: false
-    // };
   }
 
   public getAll(): Observable<ToDoItem[]> {
@@ -34,16 +26,11 @@ export class TodoService {
     return this.todoApi.create(todoItem);
   }
 
-  public update(id: number, updateTodoItem: ToDoItem): void {
-    this.todoApi.update(id, updateTodoItem);
-    // this.todoStore.update(updateTodoItem);
+  public update(updateTodoItem: ToDoItem): Observable<ToDoItem> {
+    return this.todoApi.update(updateTodoItem);
   }
 
   public delete(id: number): Observable<ToDoItem> {
     return this.todoApi.getById(id);
-  }
-
-  public selectTodoItemForUpdate(id: number): void {
-    this._updatingTodoItem = Object.assign({}, this.todoStore.findById(id));
   }
 }

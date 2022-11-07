@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../service/todo.service';
 import { ToDoItem } from '../../model/ToDoItem';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-todo-item',
@@ -10,14 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UpdateTodoItemComponent implements OnInit {
 
-  // get todoItem(): ToDoItem{
-  //   return this.todoService.currentUpdatingTodoItem();
-  // }
-  
-  // todoItem: ToDoItem = new ToDoItem(0, '', '', false);
   todoItem: ToDoItem
 
-  constructor(public todoService: TodoService, private activeRoute: ActivatedRoute) {
+  constructor(public todoService: TodoService, private router: Router, private activeRoute: ActivatedRoute) {
     this.todoItem = 
       {
         id: 0,
@@ -35,7 +30,15 @@ export class UpdateTodoItemComponent implements OnInit {
     });
   }
 
+  async navToList(): Promise<boolean> {
+    return this.router.navigate([''], {
+      relativeTo: this.activeRoute.parent
+    });
+  }
+
   update(): void {
-    this.todoService.update(this.todoItem.id, this.todoItem);
+    this.todoService.update(this.todoItem).subscribe(() => {
+      this.navToList();
+    });;
   }
 }

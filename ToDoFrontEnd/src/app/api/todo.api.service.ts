@@ -28,7 +28,11 @@ export class TodoApiService {
     return this.http.delete<void>(`${apiUrl}?id=${id}`);
   }
 
-  public update(id: number, todo: ToDoItem): Observable<ToDoItem> {
-    return this.http.put<ToDoItem>(`${apiUrl}/${id}`, todo);
+  // public update(id: number, todo: ToDoItem): Observable<ToDoItem> {
+  //   return this.http.put<ToDoItem>(`${apiUrl}/${id}`, todo);
+  // }
+
+  public update(todo: ToDoItem): Observable<ToDoItem> {
+    return this.http.put<ToDoItem>(`${apiUrl}`, todo);
   }
 }

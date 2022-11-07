@@ -13,7 +13,6 @@ export class CreateTodoitemComponent implements OnInit, OnDestroy {
   public toDoItem: ToDoItem;
 
   constructor(private todoService: TodoService, private router: Router, private route: ActivatedRoute) {
-    // this.toDoItem = new ToDoItem(0,'1', '2', false);
     this.toDoItem = 
     {
       id: 0,

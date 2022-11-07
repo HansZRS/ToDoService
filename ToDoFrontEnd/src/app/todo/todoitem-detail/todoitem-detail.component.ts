@@ -10,13 +10,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TodoitemDetailComponent implements OnInit {
 
-  // get todoItem(): ToDoItem{
-  //   return this.todoService.currentTodoItem();
-  // }
+  public todoItem: ToDoItem;
 
-  public todoItem: ToDoItem = {} as ToDoItem;
-  
-  constructor(public todoService: TodoService, private activeRoute: ActivatedRoute) { }
+  constructor(public todoService: TodoService, private activeRoute: ActivatedRoute) {
+    this.todoItem = 
+    {
+      id: 0,
+      title: '',
+      description: '',
+      isDone: false
+    };
+  }
 
   ngOnInit(): void {
     const id = this.activeRoute.snapshot.paramMap.get('id');
@@ -26,7 +30,7 @@ export class TodoitemDetailComponent implements OnInit {
     });
   }
 
-  // update(): void {
-  //   this.todoService.update(this.todoItem);
-  // }
+  update(): void {
+    this.todoService.update(this.todoItem);
+  }
 }
