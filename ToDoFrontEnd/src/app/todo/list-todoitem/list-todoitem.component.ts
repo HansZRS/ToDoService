@@ -10,7 +10,14 @@ import { TodoService } from '../../service/todo.service';
 })
 export class ListTodoitemComponent implements OnInit {
 
-  public toDoItems: ToDoItem[] = [];
+  public toDoItems: ToDoItem[] = [
+    {
+      id: 0,
+      title: '',
+      description: '',
+      isDone: false
+    },
+  ];
   // public get toDoItems(): ToDoItem[] {
   //   return this.todoService.todoItems;
   // }
