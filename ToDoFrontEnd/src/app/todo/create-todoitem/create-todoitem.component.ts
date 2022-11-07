@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToDoItem } from '../../model/ToDoItem';
 import { TodoService } from '../../service/todo.service';
 
@@ -7,19 +8,38 @@ import { TodoService } from '../../service/todo.service';
   templateUrl: './create-todoitem.component.html',
   styleUrls: ['./create-todoitem.component.scss']
 })
-export class CreateTodoitemComponent implements OnInit {
+export class CreateTodoitemComponent implements OnInit, OnDestroy {
 
   public toDoItem: ToDoItem;
 
-  constructor(private todoService: TodoService) {
-    this.toDoItem = new ToDoItem(0,'1', '2', false);
+  constructor(private todoService: TodoService, private router: Router, private route: ActivatedRoute) {
+    // this.toDoItem = new ToDoItem(0,'1', '2', false);
+    this.toDoItem = 
+    {
+      id: 0,
+      title: '',
+      description: '',
+      isDone: false
+    };
   }
 
   ngOnInit(): void {
   }
 
-  public createToDoItem(): void {
-    this.todoService.create(this.toDoItem);
+  ngOnDestroy() { 
   }
 
+  async navToList(): Promise<boolean> {
+    return this.router.navigate([''], {
+      relativeTo: this.route.parent
+    });
+  }
+
+  public createToDoItem(): void {
+    if (this.toDoItem.id != null){
+      this.todoService.create(this.toDoItem).subscribe(() => {
+        this.navToList();
+      });
+    }
+  }
 }

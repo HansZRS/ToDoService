@@ -30,35 +30,20 @@ export class TodoService {
     return this.todoApi.getById(id);
   }
 
-  public create(todoItem: ToDoItem): void {
-    this.todoApi.create(todoItem).subscribe({
-      next: response => {},
-      error:error=>{
-        this.errorMessage = error.errorMessage;
-      }
-    });
+  public create(todoItem: ToDoItem): Observable<void> {
+    return this.todoApi.create(todoItem);
   }
 
-  public update(updateTodoItem: ToDoItem): void {
-    this.todoStore.update(updateTodoItem);
+  public update(id: number, updateTodoItem: ToDoItem): void {
+    this.todoApi.update(id, updateTodoItem);
+    // this.todoStore.update(updateTodoItem);
   }
 
   public delete(id: number): Observable<ToDoItem> {
     return this.todoApi.getById(id);
   }
-  // public selectTodoItem(id: number): void {
-  //   this._selectedTodoItem = this.todoStore.findById(id);
-  // }
 
   public selectTodoItemForUpdate(id: number): void {
     this._updatingTodoItem = Object.assign({}, this.todoStore.findById(id));
   }
-
-  // public currentTodoItem(): ToDoItem {
-  //   return this._selectedTodoItem;
-  // }
-
-  // public currentUpdatingTodoItem(): ToDoItem {
-  //   return this._updatingTodoItem;
-  // }
 }

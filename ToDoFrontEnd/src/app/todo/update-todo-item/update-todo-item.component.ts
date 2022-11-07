@@ -14,10 +14,18 @@ export class UpdateTodoItemComponent implements OnInit {
   //   return this.todoService.currentUpdatingTodoItem();
   // }
   
-  todoItem: ToDoItem = new ToDoItem(0, '', '', false);
+  // todoItem: ToDoItem = new ToDoItem(0, '', '', false);
+  todoItem: ToDoItem
 
-  constructor(public todoService: TodoService,
-    private activeRoute: ActivatedRoute) { }
+  constructor(public todoService: TodoService, private activeRoute: ActivatedRoute) {
+    this.todoItem = 
+      {
+        id: 0,
+        title: '',
+        description: '',
+        isDone: false
+      };
+   }
 
   ngOnInit(): void { 
     const id = this.activeRoute.snapshot.paramMap.get('id');
@@ -28,6 +36,6 @@ export class UpdateTodoItemComponent implements OnInit {
   }
 
   update(): void {
-    this.todoService.update(this.todoItem);
+    this.todoService.update(this.todoItem.id, this.todoItem);
   }
 }
